@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Projetos</title>
+
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <!-- Estilos personalizados para a lista -->
+    <style>
+      body {
+        padding-top: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+      }
+
+      .btn-editar {
+        background-color: #007bff;
+      }
+
+      .btn-excluir {
+        background-color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Lista de Projetos</h1>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data de Início</th>
+            <th>Gerente Responsável</th>
+            <th>Previsão de Término</th>
+            <th>Data Real de Término</th>
+            <th>Orcamento Total</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="projeto : ${projetos}">
+            <td th:text="${projeto.id}"></td>
+            <td th:text="${projeto.nome}"></td>
+            <td
+              th:text="${#dates.format(projeto.dataInicio, 'yyyy-MM-dd')}"
+            ></td>
+            <td th:text="${projeto.gerenteResponsavel}"></td>
+            <td
+              th:text="${#dates.format(projeto.previsaoTermino, 'yyyy-MM-dd')}"
+            ></td>
+            <td
+              th:text="${#dates.format(projeto.dataRealTermino, 'yyyy-MM-dd')}"
+            ></td>
+            <td th:text="${projeto.orcamentoTotal}"></td>
+            <td th:text="${projeto.descricao}"></td>
+            <td th:text="${projeto.status}"></td>
+            <td>
+              <a
+                th:href="@{'/projetos/' + ${projeto.id} + '/editar'}"
+                class="waves-effect waves-light btn btn-editar"
+                >Editar</a
+              >
+              <a
+                th:href="@{'/projetos/' + ${projeto.id} + '/excluir'}"
+                class="waves-effect waves-light btn btn-excluir"
+                >Excluir</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <a th:href="@{/projetos/novo}" class="waves-effect waves-light btn"
+        >Novo Projeto</a
+      >
+    </div>
+  </body>
+</html>
